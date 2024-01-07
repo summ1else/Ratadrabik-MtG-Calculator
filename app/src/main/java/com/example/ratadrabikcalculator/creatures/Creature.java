@@ -7,7 +7,15 @@ import lombok.Data;
 
 @Data
 public class Creature {
+
+    public Creature(CreatureFactory.CreatureName creatureName) {
+        this.name = creatureName;
+    }
     UUID id = UUID.randomUUID();
+
+    CreatureFactory.CreatureName name;
+
+    boolean isZombieType = false;
     boolean isLegendary = false;
 
     boolean isToken = false;

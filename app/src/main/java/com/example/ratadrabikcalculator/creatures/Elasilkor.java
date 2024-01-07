@@ -1,9 +1,17 @@
 package com.example.ratadrabikcalculator.creatures;
 
-import lombok.Builder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.function.Function;
 
-@Builder
+
 public class Elasilkor extends Creature implements AnotherCreatureEntersTheBattleField, AnotherCreatureLeavesTheBattleField {
+
+
+    public Elasilkor(CreatureFactory.CreatureName creatureName) {
+        super(creatureName);
+    }
 
     public int enteringLifeGained(int triggeredEntries) {
         if (triggeredEntries == 0 || triggeredEntries == 1) {
@@ -29,11 +37,12 @@ public class Elasilkor extends Creature implements AnotherCreatureEntersTheBattl
                 }
             }
         }
-        boardState.lifeGained = boardState.lifeGained + (ELAS_LIFE_ADD * iterations);
+        boardState.gainLife(ELAS_LIFE_ADD * iterations);
     }
 
     @Override
-    public void anotherCreatureLeavesTheBattleField(BoardState boardState) {
+    public List<Callable<Void>> anotherCreatureLeavesTheBattleField(BoardState boardState, Creature creature) {
         boardState.oppLifeLost++;
+        return new ArrayList<>();
     }
 }
