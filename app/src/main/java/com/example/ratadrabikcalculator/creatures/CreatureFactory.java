@@ -15,6 +15,8 @@ public class CreatureFactory {
                 return new Drivnod();
             case MONDRAK:
                 return new Mondrak();
+            case NAZGUL:
+                return new Nazgul();
             default: throw new RuntimeException("Name not found");
         }
     }
@@ -25,6 +27,7 @@ public class CreatureFactory {
         ROAMING_THRONE,
         TEYSA,
         DRIVNOD,
-        MONDRAK
+        MONDRAK,
+        NAZGUL
     }
 }

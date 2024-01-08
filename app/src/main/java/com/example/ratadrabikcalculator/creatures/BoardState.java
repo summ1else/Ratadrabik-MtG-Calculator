@@ -43,14 +43,22 @@ public class BoardState {
     }
 
     public void spawnCreature(Creature newCreature) {
+        List<Callable<Void>> callbacksAfterSpawn = new ArrayList<>();
         creatures.forEach(creature -> {
             if (newCreature != creature && creature instanceof AnotherCreatureEntersTheBattleField) {
                 ((AnotherCreatureEntersTheBattleField) creature).anotherCreatureEntersTheBattleField(this, newCreature);
             }
         });
         if (newCreature instanceof EntersTheBattleField) {
-            ((EntersTheBattleField) newCreature).entersTheBattleField(this);
+            callbacksAfterSpawn.addAll(((EntersTheBattleField) newCreature).entersTheBattleField(this));
         }
+        callbacksAfterSpawn.forEach(callback -> {
+            try {
+                callback.call();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     public void killCreature(Creature dyingCreature) {

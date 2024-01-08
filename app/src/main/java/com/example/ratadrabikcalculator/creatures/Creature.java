@@ -18,6 +18,8 @@ public class Creature {
     List<String> notes = new ArrayList<>();
     CreatureFactory.CreatureName name;
 
+    int counters = 0;
+
     boolean isZombieType = false;
     boolean isLegendary = false;
 

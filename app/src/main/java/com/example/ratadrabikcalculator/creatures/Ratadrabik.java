@@ -37,12 +37,9 @@ public class Ratadrabik extends Creature implements AnotherCreatureDies {
                 creature.isToken = true;
                 creature.isZombieType = true;
                 boardState.creatures.add(creature);
-                currentStateTriggers.add(new Callable<Void>() {
-                    @Override
-                    public Void call() throws Exception {
-                        boardState.spawnCreature(creature);
-                        return null;
-                    }
+                currentStateTriggers.add(() -> {
+                    boardState.spawnCreature(creature);
+                    return null;
                 });
 
             }
