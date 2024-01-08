@@ -23,6 +23,8 @@ public class CreatureFactory {
                 return new Elenda();
             case VAMPIRE:
                 return new Vampire();
+            case KONRAD:
+                return new Konrad();
             default: throw new RuntimeException("Name not found");
         }
     }
@@ -37,6 +39,7 @@ public class CreatureFactory {
         NAZGUL,
         YOSHIMARU,
         ELENDA,
-        VAMPIRE
+        VAMPIRE,
+        KONRAD
     }
 }
