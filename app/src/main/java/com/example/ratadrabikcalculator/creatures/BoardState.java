@@ -64,7 +64,7 @@ public class BoardState {
     public void killCreature(Creature dyingCreature) {
         List<Callable<Void>> callbacksAfterDeath = new ArrayList<>();
         if (dyingCreature instanceof DiesTrigger) {
-            ((DiesTrigger) dyingCreature).exitBattlefield(this);
+           callbacksAfterDeath.addAll(((DiesTrigger) dyingCreature).dies(this));
         }
         List<Creature> creaturesList = creatures.stream().filter(creature -> creature != dyingCreature).collect(Collectors.toList());
         creaturesList.forEach(creature -> {

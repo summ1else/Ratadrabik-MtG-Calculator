@@ -19,6 +19,10 @@ public class CreatureFactory {
                 return new Nazgul();
             case YOSHIMARU:
                 return new Yoshimaru();
+            case ELENDA:
+                return new Elenda();
+            case VAMPIRE:
+                return new Vampire();
             default: throw new RuntimeException("Name not found");
         }
     }
@@ -31,6 +35,8 @@ public class CreatureFactory {
         DRIVNOD,
         MONDRAK,
         NAZGUL,
-        YOSHIMARU
+        YOSHIMARU,
+        ELENDA,
+        VAMPIRE
     }
 }
