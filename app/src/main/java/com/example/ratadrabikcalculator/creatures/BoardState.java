@@ -46,7 +46,7 @@ public class BoardState {
     public void spawnCreature(Creature newCreature) {
         creatures.forEach(creature -> {
             if (newCreature != creature && creature instanceof AnotherCreatureEntersTheBattleField) {
-                ((AnotherCreatureEntersTheBattleField) creature).anotherCreatureEntersTheBattleField(this);
+                ((AnotherCreatureEntersTheBattleField) creature).anotherCreatureEntersTheBattleField(this, newCreature);
             }
         });
         if (newCreature instanceof EntersTheBattleField) {
@@ -77,6 +77,12 @@ public class BoardState {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
+        });
+    }
+
+    public void resetNotes() {
+        creatures.forEach(creature -> {
+            creature.notes = new ArrayList<>();
         });
     }
 

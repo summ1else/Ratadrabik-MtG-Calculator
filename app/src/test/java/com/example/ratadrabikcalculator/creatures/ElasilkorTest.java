@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ElasilkorTest {
@@ -12,11 +14,15 @@ public class ElasilkorTest {
 
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
+    BoardState boardState = new BoardState();
+
+    @Before
+    public void beforeEach() {
+        this.boardState = new BoardState();
+    }
+
     @Test
     public void elasIlKorBoardState() {
-        BoardState boardState = new BoardState();
-
-
         Creature elasilkor1 = CreatureFactory.createCreature(CreatureFactory.CreatureName.ELASILKOR);
         elasilkor1.isToken = true;
         elasilkor1.isZombieType = true;
@@ -42,7 +48,6 @@ public class ElasilkorTest {
 
     @Test
     public void elasIlKorBoardStateRoamingThrone() {
-        BoardState boardState = new BoardState();
         boardState.addCreature(CreatureFactory.createCreature(CreatureFactory.CreatureName.ROAMING_THRONE));
 
         Creature elasilkor1 = CreatureFactory.createCreature(CreatureFactory.CreatureName.ELASILKOR);
@@ -71,8 +76,6 @@ public class ElasilkorTest {
 
     @Test
     public void elasIlKorBoardStateRoamingThroneNonToken() {
-        BoardState boardState = new BoardState();
-
         boardState.addCreature(CreatureFactory.createCreature(CreatureFactory.CreatureName.ROAMING_THRONE));
         Creature elasilkor1 = CreatureFactory.createCreature(CreatureFactory.CreatureName.ELASILKOR);
         elasilkor1.isToken = true;
@@ -101,8 +104,6 @@ public class ElasilkorTest {
 
     @Test
     public void elasIlKorBoardStateRatadrabikNonToken() {
-        BoardState boardState = new BoardState();
-
         Creature ratadrabikOriginal = CreatureFactory.createCreature(CreatureFactory.CreatureName.RATADRABIK);
         ratadrabikOriginal.isLegendary = true;
         boardState.addCreature(ratadrabikOriginal);
@@ -153,18 +154,12 @@ public class ElasilkorTest {
         boardState.killCreature(elasilkorMain);
 
         assertEquals(12, boardState.getLifeGained());
-
         assertEquals(2, boardState.oppLifeLost);
         assertEquals(6, boardState.creatures.size());
-
-        System.out.println(gson.toJson(boardState));
-
     }
 
     @Test
     public void elasIlKorBoardStateRoamingThroneTeysaRatadrabik() {
-        BoardState boardState = new BoardState();
-
         Creature ratadrabikOriginal = CreatureFactory.createCreature(CreatureFactory.CreatureName.RATADRABIK);
         ratadrabikOriginal.isLegendary = true;
         boardState.addCreature(ratadrabikOriginal);
@@ -195,11 +190,138 @@ public class ElasilkorTest {
         boardState.killCreature(elasilkorMain);
 
         assertEquals(24, boardState.getLifeGained());
-
         assertEquals(6, boardState.oppLifeLost);
         assertEquals(8, boardState.creatures.size());
 
-        System.out.println(gson.toJson(boardState));
+    }
+
+
+    @Test
+    public void elasIlKorBoardStateRoamingThroneTeysaRatadrabikAnnointedProcession() {
+        boardState.isAnointedProcessionPresent = true;
+
+        Creature ratadrabikOriginal = CreatureFactory.createCreature(CreatureFactory.CreatureName.RATADRABIK);
+        ratadrabikOriginal.isLegendary = true;
+        boardState.addCreature(ratadrabikOriginal);
+
+
+        Creature roamingThrown = CreatureFactory.createCreature(CreatureFactory.CreatureName.ROAMING_THRONE);
+        boardState.addCreature(roamingThrown);
+
+        Creature teysa = CreatureFactory.createCreature(CreatureFactory.CreatureName.TEYSA);
+        teysa.isLegendary = true;
+        boardState.addCreature(teysa);
+
+        Creature elasilkorMain = CreatureFactory.createCreature(CreatureFactory.CreatureName.ELASILKOR);
+        elasilkorMain.isLegendary = true;
+        boardState.addCreature(elasilkorMain);
+
+        Creature elasilkorToken1 = CreatureFactory.createCreature(CreatureFactory.CreatureName.ELASILKOR);
+        elasilkorToken1.isToken = true;
+        elasilkorToken1.isZombieType = true;
+        boardState.addCreature(elasilkorToken1);
+
+        Creature elasilkorToken2 = CreatureFactory.createCreature(CreatureFactory.CreatureName.ELASILKOR);
+        elasilkorToken2.isToken = true;
+        elasilkorToken2.isZombieType = true;
+        boardState.addCreature(elasilkorToken2);
+
+        boardState.removeCreature(elasilkorMain);
+        boardState.killCreature(elasilkorMain);
+
+        assertEquals(84, boardState.getLifeGained());
+        assertEquals(6, boardState.oppLifeLost);
+        assertEquals(11, boardState.creatures.size());
+
+    }
+
+    @Test
+    public void elasIlKorBoardStateRoamingThroneTeysaRatadrabikAnnointedProcessionDrivnod() {
+        boardState.isAnointedProcessionPresent = true;
+
+        Creature ratadrabikOriginal = CreatureFactory.createCreature(CreatureFactory.CreatureName.RATADRABIK);
+        ratadrabikOriginal.isLegendary = true;
+        boardState.addCreature(ratadrabikOriginal);
+
+
+        Creature roamingThrown = CreatureFactory.createCreature(CreatureFactory.CreatureName.ROAMING_THRONE);
+        boardState.addCreature(roamingThrown);
+
+        Creature teysa = CreatureFactory.createCreature(CreatureFactory.CreatureName.TEYSA);
+        teysa.isLegendary = true;
+        boardState.addCreature(teysa);
+
+        Creature drivnod = CreatureFactory.createCreature(CreatureFactory.CreatureName.DRIVNOD);
+        drivnod.isLegendary = true;
+        boardState.addCreature(drivnod);
+
+        Creature elasilkorMain = CreatureFactory.createCreature(CreatureFactory.CreatureName.ELASILKOR);
+        elasilkorMain.isLegendary = true;
+        boardState.addCreature(elasilkorMain);
+
+        Creature elasilkorToken1 = CreatureFactory.createCreature(CreatureFactory.CreatureName.ELASILKOR);
+        elasilkorToken1.isToken = true;
+        elasilkorToken1.isZombieType = true;
+        boardState.addCreature(elasilkorToken1);
+
+        Creature elasilkorToken2 = CreatureFactory.createCreature(CreatureFactory.CreatureName.ELASILKOR);
+        elasilkorToken2.isToken = true;
+        elasilkorToken2.isZombieType = true;
+        boardState.addCreature(elasilkorToken2);
+
+        boardState.removeCreature(elasilkorMain);
+        boardState.killCreature(elasilkorMain);
+
+        assertEquals(144, boardState.getLifeGained());
+        assertEquals(8, boardState.oppLifeLost);
+        assertEquals(14, boardState.creatures.size());
+
+    }
+
+    @Test
+    public void elasIlKorBoardStateRoamingThroneTeysaRatadrabikAnnointedProcessionDrivnodMondrak() {
+        boardState.isAnointedProcessionPresent = true;
+
+        Creature ratadrabikOriginal = CreatureFactory.createCreature(CreatureFactory.CreatureName.RATADRABIK);
+        ratadrabikOriginal.isLegendary = true;
+        boardState.addCreature(ratadrabikOriginal);
+
+
+        Creature roamingThrown = CreatureFactory.createCreature(CreatureFactory.CreatureName.ROAMING_THRONE);
+        boardState.addCreature(roamingThrown);
+
+        Creature teysa = CreatureFactory.createCreature(CreatureFactory.CreatureName.TEYSA);
+        teysa.isLegendary = true;
+        boardState.addCreature(teysa);
+
+        Creature drivnod = CreatureFactory.createCreature(CreatureFactory.CreatureName.DRIVNOD);
+        drivnod.isLegendary = true;
+        boardState.addCreature(drivnod);
+
+        Creature mondrak = CreatureFactory.createCreature(CreatureFactory.CreatureName.MONDRAK);
+        mondrak.isLegendary = true;
+        boardState.addCreature(mondrak);
+
+        Creature elasilkorMain = CreatureFactory.createCreature(CreatureFactory.CreatureName.ELASILKOR);
+        elasilkorMain.isLegendary = true;
+        boardState.addCreature(elasilkorMain);
+
+        Creature elasilkorToken1 = CreatureFactory.createCreature(CreatureFactory.CreatureName.ELASILKOR);
+        elasilkorToken1.isToken = true;
+        elasilkorToken1.isZombieType = true;
+        boardState.addCreature(elasilkorToken1);
+
+        Creature elasilkorToken2 = CreatureFactory.createCreature(CreatureFactory.CreatureName.ELASILKOR);
+        elasilkorToken2.isToken = true;
+        elasilkorToken2.isZombieType = true;
+        boardState.addCreature(elasilkorToken2);
+
+        boardState.removeCreature(elasilkorMain);
+        boardState.killCreature(elasilkorMain);
+
+        assertEquals(544, boardState.getLifeGained());
+        assertEquals(8, boardState.oppLifeLost);
+        assertEquals(23, boardState.creatures.size());
 
     }
 

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import lombok.Builder;
-
 public class Ratadrabik extends Creature implements AnotherCreatureDies {
 
 
@@ -19,12 +17,20 @@ public class Ratadrabik extends Creature implements AnotherCreatureDies {
         List<Callable<Void>> currentStateTriggers = new ArrayList<>();
         if (dyingCreature.isLegendary) {
             int iterations = 1;
+            int multipliers = 1;
             for (Creature creature : boardState.creatures) {
                 if (creature instanceof EffectAdder) {
                     if (((EffectAdder) creature).shouldAddAdditionalEffectOnDeath(this)) {
                         iterations++;
                     }
                 }
+                if (creature instanceof TokenMultiplier) {
+                    multipliers = multipliers * ((TokenMultiplier) creature).shouldMultiplyTokens(this);
+                }
+            }
+            iterations = iterations * multipliers;
+            if (boardState.isAnointedProcessionPresent) {
+                iterations = iterations * 2;
             }
             for (int i = 0; i < iterations; i++) {
                 Creature creature = CreatureFactory.createCreature(dyingCreature.name);

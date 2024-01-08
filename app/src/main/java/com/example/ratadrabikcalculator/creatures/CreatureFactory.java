@@ -11,6 +11,10 @@ public class CreatureFactory {
                 return new RoamingThrone();
             case TEYSA:
                 return new Teysa();
+            case DRIVNOD:
+                return new Drivnod();
+            case MONDRAK:
+                return new Mondrak();
             default: throw new RuntimeException("Name not found");
         }
     }
@@ -19,6 +23,8 @@ public class CreatureFactory {
         ELASILKOR,
         RATADRABIK,
         ROAMING_THRONE,
-        TEYSA
+        TEYSA,
+        DRIVNOD,
+        MONDRAK
     }
 }

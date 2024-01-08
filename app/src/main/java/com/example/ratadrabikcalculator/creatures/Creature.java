@@ -1,6 +1,8 @@
 package com.example.ratadrabikcalculator.creatures;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import lombok.Data;
@@ -13,6 +15,7 @@ public class Creature {
     }
     UUID id = UUID.randomUUID();
 
+    List<String> notes = new ArrayList<>();
     CreatureFactory.CreatureName name;
 
     boolean isZombieType = false;
