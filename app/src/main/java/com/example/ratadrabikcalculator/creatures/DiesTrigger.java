@@ -1,5 +1,5 @@
 package com.example.ratadrabikcalculator.creatures;
 
-public interface LeavesTheBattleField {
+public interface DiesTrigger {
     public void exitBattlefield(BoardState boardState);
 }

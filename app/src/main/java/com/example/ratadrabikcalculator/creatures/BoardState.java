@@ -4,8 +4,7 @@ package com.example.ratadrabikcalculator.creatures;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.function.Consumer;
-import java.util.function.Function;
+import java.util.stream.Collectors;
 
 
 public class BoardState {
@@ -55,21 +54,21 @@ public class BoardState {
     }
 
     public void killCreature(Creature dyingCreature) {
-
         List<Callable<Void>> callbacksAfterDeath = new ArrayList<>();
-        if (dyingCreature instanceof LeavesTheBattleField) {
-            ((LeavesTheBattleField) dyingCreature).exitBattlefield(this);
+        if (dyingCreature instanceof DiesTrigger) {
+            ((DiesTrigger) dyingCreature).exitBattlefield(this);
         }
-        List<Creature> creaturesList = new ArrayList<>(creatures);
+        List<Creature> creaturesList = creatures.stream().filter(creature -> creature != dyingCreature).collect(Collectors.toList());
         creaturesList.forEach(creature -> {
-            if (creature instanceof AnotherCreatureLeavesTheBattleField && creature != dyingCreature) {
+            if (creature instanceof AnotherCreatureLeavesTheBattleField) {
                 callbacksAfterDeath.addAll(((AnotherCreatureLeavesTheBattleField) creature).anotherCreatureLeavesTheBattleField(this, dyingCreature));
             }
-            if (creature instanceof AnotherCreatureDies && creature != dyingCreature) {
+            if (creature instanceof AnotherCreatureDies) {
                 callbacksAfterDeath.addAll(((AnotherCreatureDies) creature).anotherCreatureDies(this, dyingCreature));
             }
         });
 
+        removeCreature(dyingCreature);
 
         callbacksAfterDeath.forEach(callback -> {
             try {

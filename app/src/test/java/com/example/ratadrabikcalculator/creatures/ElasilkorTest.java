@@ -115,8 +115,8 @@ public class ElasilkorTest {
         Creature roamingThrown = CreatureFactory.createCreature(CreatureFactory.CreatureName.ROAMING_THRONE);
         boardState.addCreature(roamingThrown);
 
-        boardState.removeCreature(elasilkor1);
         boardState.killCreature(elasilkor1);
+        boardState.removeCreature(elasilkor1);
 
         assertEquals(4, boardState.getLifeGained());
 
@@ -150,11 +150,10 @@ public class ElasilkorTest {
         Creature roamingThrown = CreatureFactory.createCreature(CreatureFactory.CreatureName.ROAMING_THRONE);
         boardState.addCreature(roamingThrown);
 
-        boardState.removeCreature(elasilkorMain);
         boardState.killCreature(elasilkorMain);
 
         assertEquals(12, boardState.getLifeGained());
-        assertEquals(2, boardState.oppLifeLost);
+        assertEquals(4, boardState.oppLifeLost);
         assertEquals(6, boardState.creatures.size());
     }
 
@@ -186,7 +185,6 @@ public class ElasilkorTest {
         elasilkorToken2.isZombieType = true;
         boardState.addCreature(elasilkorToken2);
 
-        boardState.removeCreature(elasilkorMain);
         boardState.killCreature(elasilkorMain);
 
         assertEquals(24, boardState.getLifeGained());
@@ -226,7 +224,6 @@ public class ElasilkorTest {
         elasilkorToken2.isZombieType = true;
         boardState.addCreature(elasilkorToken2);
 
-        boardState.removeCreature(elasilkorMain);
         boardState.killCreature(elasilkorMain);
 
         assertEquals(84, boardState.getLifeGained());
@@ -269,7 +266,6 @@ public class ElasilkorTest {
         elasilkorToken2.isZombieType = true;
         boardState.addCreature(elasilkorToken2);
 
-        boardState.removeCreature(elasilkorMain);
         boardState.killCreature(elasilkorMain);
 
         assertEquals(144, boardState.getLifeGained());
@@ -316,7 +312,6 @@ public class ElasilkorTest {
         elasilkorToken2.isZombieType = true;
         boardState.addCreature(elasilkorToken2);
 
-        boardState.removeCreature(elasilkorMain);
         boardState.killCreature(elasilkorMain);
 
         assertEquals(544, boardState.getLifeGained());

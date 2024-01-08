@@ -35,7 +35,7 @@ public class Elasilkor extends Creature implements AnotherCreatureEntersTheBattl
         int ELAS_LIFE_LOSS_OPP = 1;
         int iterations = 1;
         for (Creature creature : boardState.creatures) {
-            if (creature instanceof EffectAdder) {
+            if (creature != dyingCreature && creature instanceof EffectAdder) {
                 if (((EffectAdder) creature).shouldAddAdditionalEffectOnDeath(this)) {
                     iterations++;
                 }

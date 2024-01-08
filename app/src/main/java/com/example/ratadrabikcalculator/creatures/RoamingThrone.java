@@ -7,11 +7,11 @@ public class RoamingThrone extends Creature implements EffectAdder{
 
     @Override
     public boolean shouldAddAdditionalEffectOnDeath(Creature creature) {
-        return creature.isZombieType;
+        return creature != this && creature.isZombieType;
     }
 
     @Override
     public boolean shouldAddAdditionalEffectOnETB(Creature creature) {
-        return creature.isZombieType;
+        return creature != this && creature.isZombieType;
     }
 }
