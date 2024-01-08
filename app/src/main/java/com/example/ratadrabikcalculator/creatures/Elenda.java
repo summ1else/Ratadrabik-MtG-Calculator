@@ -18,10 +18,12 @@ public class Elenda extends Creature implements DiesTrigger, AnotherCreatureDies
         for (Creature creature : boardState.creatures) {
             if (creature != dyingCreature && creature instanceof EffectAdder) {
                 if (((EffectAdder) creature).shouldAddAdditionalEffectOnDeath(this)) {
+                    this.notes.add("Additional effect from " + creature.name);
                     iterations++;
                 }
             }
         }
+        this.notes.add("Added " + (iterations) + " counters from the death of " + dyingCreature.name + " " + dyingCreature.id);
         this.counters = this.counters + iterations;
         return new ArrayList<>();
     }
@@ -33,9 +35,11 @@ public class Elenda extends Creature implements DiesTrigger, AnotherCreatureDies
         for (Creature creature : boardState.creatures) {
             if (creature instanceof EffectAdder) {
                 if (((EffectAdder) creature).shouldAddAdditionalEffectOnDeath(this)) {
+                    this.notes.add("Additional effect from " + creature.name);
                     iterations++;
                 }
             }
+            this.notes.add("Spawning " + this.counters + " vampires from the death of " + this.name + " " + this.id);
         }
         for (int i = 0; i < (this.counters + 1) * iterations; i++) {
             callbacks.add(() -> {

@@ -12,6 +12,8 @@ public class Ratadrabik extends Creature implements AnotherCreatureDies {
         this.isZombieType = true;
     }
 
+    // TODO: need to track whether creatures have spawned yet now? annoying. Ratadrabik adding creatures to board state and then spawning them later.
+
     @Override
     public List<Callable<Void>> anotherCreatureDies(BoardState boardState, Creature dyingCreature) {
         List<Callable<Void>> currentStateTriggers = new ArrayList<>();
