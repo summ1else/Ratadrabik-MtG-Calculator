@@ -1,17 +1,17 @@
 package com.example.ratadrabikcalculator.creatures;
 
-public class RoamingThrone extends Creature implements EffectAdder{
-    public RoamingThrone() {
-        super(CreatureFactory.CreatureName.ROAMING_THRONE);
+public class Teysa extends Creature implements EffectAdder{
+    public Teysa() {
+        super(CreatureFactory.CreatureName.TEYSA);
     }
 
     @Override
     public boolean shouldAddAdditionalEffectOnDeath(Creature creature) {
-        return creature.isZombieType;
+        return true;
     }
 
     @Override
     public boolean shouldAddAdditionalEffectOnETB(Creature creature) {
-        return creature.isZombieType;
+        return false;
     }
 }

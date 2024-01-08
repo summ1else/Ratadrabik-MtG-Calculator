@@ -19,7 +19,16 @@ public class BoardState {
     public int getLifeGained() {
         return this.lifeGained;
     }
+
     int oppLifeLost = 0;
+
+    public void oppLoseLife(int life) {
+        oppLifeLost = oppLifeLost + life;
+    }
+
+    public int getOppLifeLost() {
+        return this.oppLifeLost;
+    }
 
     List<Creature> creatures = new ArrayList<Creature>();
 

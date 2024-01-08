@@ -2,6 +2,9 @@ package com.example.ratadrabikcalculator.creatures;
 
 public interface EffectAdder {
 
-    boolean shouldAddAdditionalEffect(Creature creature);
+
+    boolean shouldAddAdditionalEffectOnDeath(Creature creature);
+
+    boolean shouldAddAdditionalEffectOnETB(Creature creature);
 
 }

@@ -6,25 +6,13 @@ import java.util.concurrent.Callable;
 import java.util.function.Function;
 
 
-public class Elasilkor extends Creature implements AnotherCreatureEntersTheBattleField, AnotherCreatureLeavesTheBattleField {
+public class Elasilkor extends Creature implements AnotherCreatureEntersTheBattleField, AnotherCreatureDies {
 
 
-    public Elasilkor(CreatureFactory.CreatureName creatureName) {
-        super(creatureName);
+    public Elasilkor() {
+        super(CreatureFactory.CreatureName.ELASILKOR);
     }
 
-    public int enteringLifeGained(int triggeredEntries) {
-        if (triggeredEntries == 0 || triggeredEntries == 1) {
-            return 0;
-        } else {
-            return (triggeredEntries * (triggeredEntries -1)) / 2;
-        }
-    }
-
-
-    public int leavingLifeLost(int currentCopiesIncludingDyingIfNecessary) {
-        return currentCopiesIncludingDyingIfNecessary;
-    }
 
     @Override
     public void anotherCreatureEntersTheBattleField(BoardState boardState) {
@@ -32,7 +20,7 @@ public class Elasilkor extends Creature implements AnotherCreatureEntersTheBattl
         int iterations = 1;
         for (Creature creature : boardState.creatures) {
             if (creature instanceof EffectAdder) {
-                if (((EffectAdder) creature).shouldAddAdditionalEffect(this)) {
+                if (((EffectAdder) creature).shouldAddAdditionalEffectOnETB(this)) {
                     iterations++;
                 }
             }
@@ -41,8 +29,18 @@ public class Elasilkor extends Creature implements AnotherCreatureEntersTheBattl
     }
 
     @Override
-    public List<Callable<Void>> anotherCreatureLeavesTheBattleField(BoardState boardState, Creature creature) {
-        boardState.oppLifeLost++;
+    public List<Callable<Void>> anotherCreatureDies(BoardState boardState, Creature dyingCreature) {
+        int ELAS_LIFE_LOSS_OPP = 1;
+        int iterations = 1;
+        for (Creature creature : boardState.creatures) {
+            if (creature instanceof EffectAdder) {
+                if (((EffectAdder) creature).shouldAddAdditionalEffectOnDeath(this)) {
+                    iterations++;
+                }
+            }
+        }
+        boardState.oppLoseLife(ELAS_LIFE_LOSS_OPP * iterations);
+
         return new ArrayList<>();
     }
 }

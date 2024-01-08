@@ -9,8 +9,8 @@ import lombok.Builder;
 public class Ratadrabik extends Creature implements AnotherCreatureDies {
 
 
-    public Ratadrabik(CreatureFactory.CreatureName creatureName) {
-        super(creatureName);
+    public Ratadrabik() {
+        super(CreatureFactory.CreatureName.RATADRABIK);
         this.isZombieType = true;
     }
 
@@ -21,7 +21,7 @@ public class Ratadrabik extends Creature implements AnotherCreatureDies {
             int iterations = 1;
             for (Creature creature : boardState.creatures) {
                 if (creature instanceof EffectAdder) {
-                    if (((EffectAdder) creature).shouldAddAdditionalEffect(this)) {
+                    if (((EffectAdder) creature).shouldAddAdditionalEffectOnDeath(this)) {
                         iterations++;
                     }
                 }

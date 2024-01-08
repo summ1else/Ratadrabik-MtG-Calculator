@@ -4,11 +4,13 @@ public class CreatureFactory {
     public static Creature createCreature(CreatureName creatureName) throws RuntimeException {
         switch (creatureName) {
             case ELASILKOR:
-                return new Elasilkor(CreatureName.ELASILKOR);
+                return new Elasilkor();
             case RATADRABIK:
-                return new Ratadrabik(CreatureName.RATADRABIK);
+                return new Ratadrabik();
             case ROAMING_THRONE:
-                return new RoamingThrone(CreatureName.ROAMING_THRONE);
+                return new RoamingThrone();
+            case TEYSA:
+                return new Teysa();
             default: throw new RuntimeException("Name not found");
         }
     }
@@ -16,6 +18,7 @@ public class CreatureFactory {
     public enum CreatureName {
         ELASILKOR,
         RATADRABIK,
-        ROAMING_THRONE
+        ROAMING_THRONE,
+        TEYSA
     }
 }
