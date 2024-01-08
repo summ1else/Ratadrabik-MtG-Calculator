@@ -12,6 +12,19 @@ public class BoardState {
     private int lifeGained = 0;
 
     public void gainLife(int life) {
+        List<Callable<Void>> callbacksAfterSpawn = new ArrayList<>();
+        creatures.forEach(creature -> {
+            if (creature instanceof SelfGainsLife) {
+                callbacksAfterSpawn.addAll(((SelfGainsLife) creature).onGainLife(this, life));
+            }
+        });
+        callbacksAfterSpawn.forEach(callback -> {
+            try {
+                callback.call();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
         lifeGained = lifeGained + life;
     }
 
@@ -27,6 +40,16 @@ public class BoardState {
 
     public int getOppLifeLost() {
         return this.oppLifeLost;
+    }
+
+    int targetedOppLifeLost = 0;
+
+    public void targetOppLoseLife(int life) {
+        targetedOppLifeLost = targetedOppLifeLost + life;
+    }
+
+    public int getTargetedOppLifeLost() {
+        return targetedOppLifeLost;
     }
 
     List<Creature> creatures = new ArrayList<Creature>();

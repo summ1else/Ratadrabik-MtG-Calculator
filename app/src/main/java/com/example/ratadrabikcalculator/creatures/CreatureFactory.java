@@ -25,6 +25,8 @@ public class CreatureFactory {
                 return new Vampire();
             case KONRAD:
                 return new Konrad();
+            case VITO:
+                return new Vito();
             default: throw new RuntimeException("Name not found");
         }
     }
@@ -40,6 +42,7 @@ public class CreatureFactory {
         YOSHIMARU,
         ELENDA,
         VAMPIRE,
-        KONRAD
+        KONRAD,
+        VITO
     }
 }
