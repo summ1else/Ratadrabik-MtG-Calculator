@@ -20,6 +20,8 @@ public class Creature {
 
     int counters = 0;
 
+    boolean isSpawned = false;
+
     boolean isZombieType = false;
     boolean isLegendary = false;
 
